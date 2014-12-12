@@ -10,10 +10,15 @@
     </li>
   </ul>
   <div>
-    <md-button ng-click="createQuestions()" class="md-raised md-primary">Generate</md-button>
+    <md-button ng-click="buildQuestions()" class="md-raised md-primary">Generate</md-button>
   </div>
   <div>
-    {{apiResults}}
+    <ul class="list-group">
+      <li class="list-group-item" ng-repeat="question in questions">
+        <strong>{{question.title}}</strong><br>
+        <img src="{{question.image}}">
+      </li>
+    </ul>
   </div>
   <div>
     {{alchamyResult}}

@@ -3,6 +3,48 @@
 * to disable, edit config/environment/index.js, and set `seedDB: false`
 */
 
+// require users
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/// copeid over fm seed
 'use strict';
 
 var Thing = require('/api/thing/thing.model');

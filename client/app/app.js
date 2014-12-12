@@ -13,7 +13,7 @@ angular.module('knowyorktimesApp', [
       .otherwise('/');
 
     $locationProvider.html5Mode(true);
-    $httpProvider.interceptors.push('authInterceptor');
+       $httpProvider.interceptors.push('authInterceptor');
   })
 
   .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {
