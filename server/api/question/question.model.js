@@ -5,6 +5,7 @@ var mongoose = require('mongoose'),
 
 var QuestionSchema = new Schema({
   text: String,
+  URL: String,
   type: String,
   section: String,
   active: Boolean

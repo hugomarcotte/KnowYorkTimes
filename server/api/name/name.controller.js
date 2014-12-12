@@ -2,8 +2,10 @@
 
 var _ = require('lodash');
 var Name = require('./name.model');
-
-
+var AlchemyAPI = require('../../alchemyapi.js');
+var https = require('https');
+var alchemyapi = new AlchemyAPI();
+var https = require('https');
 
 
 // Get name from Image with Alchamy
@@ -12,12 +14,15 @@ exports.getNameFromImageURL = function(req, res) {
   // Call alchamy API with req.body.URL
   // Return json from alchamy...
 
-  // function image(req, res, output) {
-  //   alchemyapi.image('url', demo_url, {}, function(response) {
-  //     output['image'] = { url:demo_url, response:JSON.stringify(response,null,4), results:response };
-  //     image_keywords(req, res, output);
-  //   });
-  // }
+  //console.log(alchemyapi);
+  //
+  // alchemyapi.analyze('url', 'http://www.nytimes.com/2014/12/11/us/politics/obama-effectiveness-cia-torture.html?ref=politics', {}, function(response) {
+  //   console.log(response);
+  //   // output['image'] = { url:demo_url, response:JSON.stringify(response,null,4), results:response };
+  //   // image_keywords(req, res, output);
+  // });
+  //
+  // http://access.alchemyapi.com/calls/url/URLGetRankedImageFaceTags
 
   return res.json(201, {name:"ben"});
 };
