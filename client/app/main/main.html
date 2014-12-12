@@ -9,14 +9,28 @@
     <md-button class="md-raised md-primary">Primary</md-button>
   </div>
 </header> -->
+<md-content>
+  <md-whiteframe class="md-whiteframe-z1" layout layout-align="center center">
+    <span>Your Score:</span>
+  </md-whiteframe>
+</md-content>
+
+
 
 <md-content layout="row" layout-align="center start" ng-repeat="question in questions">
   <md-card style="width: 600px;">
-    <img src="{{question.URL}}" class="md-card-image" alt="Washed Out">
-    <h2>{{question.text}}</h2>
-    <p>
-      The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-      two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-    </p>
+    <div layout="column">
+      <img src="{{question.URL}}" class="md-card-image" alt="Washed Out">
+      <h2>{{question.text}}</h2>
+      <p>
+        The titles of Washed Out's breakthrough song and the first single from Paracosm share the
+        two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+      </p>
+      <div layout="row" flex layout-align="center start">
+        <md-button class="md-raised md-warn" ng-click="showSimpleToast()" style="height:75px;width:150px">No</md-button>
+        <span style="width:10px;"></span>
+        <md-button class="md-primary md-raised" ng-click="showSimpleToast()" md-theme="green"  style="height:75px;width:150px">Yes</md-button>
+      </div>
+    </div>
   </md-card>
 </md-content>
