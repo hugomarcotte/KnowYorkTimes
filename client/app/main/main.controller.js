@@ -9,6 +9,7 @@ angular.module('knowyorktimesApp')
       $scope.questions = questions;
     });
 
+    $scope.names = ['Igor Minar', 'Brad Green', 'Dave Geddes', 'Naomi Black', 'Greg Weber', 'Dean Sofer', 'Wes Alvaro', 'John Scott', 'Daniel Nadasi'];
     $scope.showSimpleToast = function() {
       $mdToast.show(
         $mdToast.simple()
@@ -16,7 +17,14 @@ angular.module('knowyorktimesApp')
         .position('bottom right')
         .hideDelay(2000)
       );
+
+      currentQuestionIndex += 1;
     };
+
+    var currentQuestionIndex =1;
+    $scope.filterQuestion = function(question) {
+      return question.index === currentQuestionIndex;
+    }
 
     // $scope.addThing = function() {
     //   if($scope.newThing === '') {

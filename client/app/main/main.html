@@ -15,10 +15,8 @@
   </md-whiteframe>
 </md-content>
 
-
-
-<md-content layout="row" layout-align="center start" ng-repeat="question in questions">
-  <md-card style="width: 600px;">
+<md-content layout="row" layout-align="center start" >
+  <md-card style="width: 600px;" ng-repeat="question in questions | filter:filterQuestion" class="animate">
     <div layout="column">
       <img src="{{question.URL}}" class="md-card-image" alt="Washed Out">
       <h2>{{question.text}}</h2>

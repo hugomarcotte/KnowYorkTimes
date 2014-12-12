@@ -28,12 +28,15 @@ User.find({}).remove(function() {
 
 Question.find({}).remove(function() {
   Question.create({
+    index: 1,
     text: 'question 1',
     URL: 'http://www.nytimes.com/images/2014/12/11/sports/11hugues/11hugues-thumbWide.jpg'
   },{
+    index: 2,
     text: 'question 2',
     URL: 'http://www.nytimes.com/images/2014/12/11/science/11zimmer/11zimmer-thumbWide.jpg'
   }, {
+    index: 3,
     text: 'question 3',
     URL: 'http://www.nytimes.com/images/2014/12/12/sports/11robertson1/11robertson1-thumbWide.jpg'
   });
