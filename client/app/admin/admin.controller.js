@@ -126,6 +126,8 @@ angular.module('knowyorktimesApp')
           $scope.indexQuestion++;
         });
 
+        $scope.flexQuestionsArray = [];
+
         $http.get('/api/questions').success(function(questions) {
 
           questions.forEach(function(question) {
@@ -207,6 +209,8 @@ angular.module('knowyorktimesApp')
 
           $scope.questions = questions;
         });
+
+
     });
   };
 
