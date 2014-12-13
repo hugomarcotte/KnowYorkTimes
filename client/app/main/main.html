@@ -20,59 +20,51 @@
 
 
 
-<md-card  style="width: 600px;" ng-repeat="question in questions | filter:filterQuestion" class="animate">
-  <div layout="column">
+<md-card  style="width: 600px;" ng-repeat="question in questionsArray | filter:filterQuestion" class="animate">
+
+  <!-- question has image top  -->
+  <div ng-show="questionHasImageTop(question)"layout="column">
     <h3 style="font-size:40px" class="text-center" >This Image:</h3>
-    <img src="{{question.image}}" class="md-card-image" alt="Washed Out">
+    <img src="{{question.questionTop}}" class="md-card-image" alt="Washed Out">
     <h3 style="font-size:40px" class="text-center">Came From ... </h3>
-    <p class="text-center" style="font-size:25px"><em>{{question.displayTitle}}</em></p>
+    <p class="text-center" style="font-size:25px"><em>{{question.questionBottom}}</em></p>
     <div layout="row" flex layout-align="center start">
       <!-- <md-button class="md-raised md-warn" ng-click="showSimpleToast()" style="height:75px;width:150px">No</md-button> -->
-      <md-button class="md-raised md-warn" ng-click="noButtonClickImageToTitle(question)" style="height:75px;width:150px">No</md-button>
+      <md-button class="md-raised md-warn" ng-click="noButtonClick(question)" style="height:75px;width:150px">No</md-button>
       <span style="width:10px;"></span>
       <!-- <md-button class="md-primary md-raised" ng-click="showSimpleToast()" md-theme="green"  style="height:75px;width:150px">Yes</md-button> -->
-      <md-button class="md-primary md-raised" ng-click="yesButtonClickImageToTitle(question)" md-theme="green"  style="height:75px;width:150px">Yes</md-button>
+      <md-button class="md-primary md-raised" ng-click="yesButtonClick(question)" md-theme="green"  style="height:75px;width:150px">Yes</md-button>
     </div>
   </div>
-</md-card>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <md-content layout="row" layout-align="center start" >
-  <md-card style="width: 600px;" ng-repeat="question in questions | filter:filterQuestion" class="animate">
-    <div layout="column">
-      <img src="{{question.displayImage}}" class="md-card-image" alt="Washed Out">
-      <h2>{{question.text}}</h2>
-      <p>
-        The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-        two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-      </p>
-      <div layout="row" flex layout-align="center start">
-        <md-button class="md-raised md-warn" ng-click="showSimpleToast()" style="height:75px;width:150px">No</md-button>
-        <span style="width:10px;"></span>
-        <md-button class="md-primary md-raised" ng-click="showSimpleToast()" md-theme="green"  style="height:75px;width:150px">Yes</md-button>
-      </div>
+  <!-- question has image bottom  -->
+  <div ng-show="questionHasImageBottom(question)" layout="column">
+    <h3 style="font-size:40px" class="text-center" >This Sentence</h3>
+    <h4>{{question.questionTop}}</h4>
+    <h3 style="font-size:40px" class="text-center">Goes with ... </h3>
+    <img src="{{question.questionBottom}}" class="md-card-image" alt="Washed Out">
+    <div layout="row" flex layout-align="center start">
+      <!-- <md-button class="md-raised md-warn" ng-click="showSimpleToast()" style="height:75px;width:150px">No</md-button> -->
+      <md-button class="md-raised md-warn" ng-click="noButtonClick(question)" style="height:75px;width:150px">No</md-button>
+      <span style="width:10px;"></span>
+      <!-- <md-button class="md-primary md-raised" ng-click="showSimpleToast()" md-theme="green"  style="height:75px;width:150px">Yes</md-button> -->
+      <md-button class="md-primary md-raised" ng-click="yesButtonClick(question)" md-theme="green"  style="height:75px;width:150px">Yes</md-button>
     </div>
-  </md-card>
-</md-content> -->
+  </div>
+
+  <!-- question has no image  -->
+  <div ng-show="questionHasNoImage(question)" layout="column">
+    <h3 style="font-size:40px" class="text-center" >This sentence: </h3>
+    <h4>{{question.questionTop}}</h4>
+    <h3 style="font-size:40px" class="text-center">Came From ... </h3>
+    <p class="text-center" style="font-size:25px"><em>{{question.questionBottom}}</em></p>
+    <div layout="row" flex layout-align="center start">
+      <!-- <md-button class="md-raised md-warn" ng-click="showSimpleToast()" style="height:75px;width:150px">No</md-button> -->
+      <md-button class="md-raised md-warn" ng-click="noButtonClick(question)" style="height:75px;width:150px">No</md-button>
+      <span style="width:10px;"></span>
+      <!-- <md-button class="md-primary md-raised" ng-click="showSimpleToast()" md-theme="green"  style="height:75px;width:150px">Yes</md-button> -->
+      <md-button class="md-primary md-raised" ng-click="yesButtonClick(question)" md-theme="green"  style="height:75px;width:150px">Yes</md-button>
+    </div>
+  </div>
+
+</md-card>
