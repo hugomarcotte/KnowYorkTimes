@@ -5,7 +5,7 @@ var controller = require('./name.controller');
 
 var router = express.Router();
 
- router.get('/', controller.newYorkTimesApiCall);
+ router.get('/:pageNumber', controller.newYorkTimesApiCall);
 // router.get('/:id', controller.show);
 // router.post('/', controller.create);
 // router.put('/:id', controller.update);

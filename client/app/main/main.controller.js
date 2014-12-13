@@ -3,13 +3,27 @@
 angular.module('knowyorktimesApp')
   .controller('MainCtrl', function ($scope, $http, $mdToast, $animate, $interval) {
     $scope.awesomeThings = [];
+    $scope.questionHasImageTop = function(question) {
+      return (question.type === "imageToArticle");
+    }
 
+    $scope.questionHasImageBottom = function(question) {
+      return (question.type === "snippetToImage");
+    }
+
+    $scope.questionHasNoImage = function(question) {
+      return (question.type === "snippetToArticle");
+    }
 
     $scope.startQuiz = function() {
       $http.get('/api/questions').success(function(questions) {
-        console.log(questions);
-        $scope.questions = questions;
+        $scope.questionsArray = questions;
+        $scope.questionsArray.sort(function(a, b) {
+          return a.randomNum - b.randomNum;
+        });
       });
+
+
       $scope.countDown();
     }
 
@@ -32,11 +46,11 @@ angular.module('knowyorktimesApp')
 
 
 
-    $scope.yesButtonClickImageToTitle = function(questionObject) {
-      if (questionObject.displayTitle === questionObject.title) {
+    $scope.yesButtonClick = function(questionObject) {
+      if (questionObject.questionBottom === questionObject.questionAnswer) {
         $mdToast.show(
           $mdToast.simple()
-          .content('Your Right! + 300')
+          .content("You're Right! + 300")
           .position('top left')
           .hideDelay(2000)
         );
@@ -44,7 +58,7 @@ angular.module('knowyorktimesApp')
       } else {
         $mdToast.show(
           $mdToast.simple()
-          .content('Your Wrong :( -500')
+          .content("You're Wrong :( -500")
           .position('top left')
           .hideDelay(2000)
         );
@@ -53,11 +67,11 @@ angular.module('knowyorktimesApp')
       currentQuestionIndex += 1;
     }
 
-    $scope.noButtonClickImageToTitle = function(questionObject) {
-      if (questionObject.displayTitle !== questionObject.title) {
+    $scope.noButtonClick = function(questionObject) {
+      if (questionObject.questionBottom !== questionObject.questionAnswer) {
         $mdToast.show(
           $mdToast.simple()
-          .content('Your Right! + 300')
+          .content("You're Right! + 300")
           .position('top left')
           .hideDelay(2000)
         );
@@ -65,7 +79,7 @@ angular.module('knowyorktimesApp')
       } else {
         $mdToast.show(
           $mdToast.simple()
-          .content('Your Wrong :( -500')
+          .content("You're Wrong :( -500")
           .position('top left')
           .hideDelay(2000)
         );
@@ -77,9 +91,10 @@ angular.module('knowyorktimesApp')
 
 
 
-    var currentQuestionIndex = 1;
+    var currentQuestionIndex = 0;
     $scope.filterQuestion = function(question) {
-      return question.index === currentQuestionIndex;
+    //  return question.index === currentQuestionIndex;
+      return $scope.questionsArray.indexOf(question) === currentQuestionIndex;
     }
 
 
