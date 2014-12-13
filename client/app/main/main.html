@@ -15,11 +15,12 @@
 
   </div>
 
-  <div ng-show="quizStarted">
-    <span class="yourscore">Your Score: {{score}} Time Left: {{minLeft}}:{{secondsLeft}} </span>
+  <div ng-show="quizStarted" style="width:500px;">
+    <h2><span class="yourscore">Your Score: {{score}} Time Left: {{minLeft}}:{{secondsLeft}} </span></h2>
     <md-progress-linear md-mode="determinate" value={{pCTMaxScore}}></md-progress-linear>
     <md-progress-linear md-theme="green" md-mode="determinate" ng-value={{secondsLeffForBar}}></md-progress-linear>
   </div>
+
 
 
   <md-card  style="width:500px; height:600px; background-color:white;" ng-repeat="question in questions | filter:filterQuestion" class="animate">
