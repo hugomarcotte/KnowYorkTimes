@@ -7,7 +7,6 @@ angular.module('knowyorktimesApp')
       'link': '/'
     }];
 
-    console.log(Auth);
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;

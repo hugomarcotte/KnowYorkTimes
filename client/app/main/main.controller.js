@@ -2,6 +2,11 @@
 
 angular.module('knowyorktimesApp')
 .controller('MainCtrl', function ($scope, $http, $mdToast, $animate, $interval) {
+  var secondsLeft = 120;
+  var currentQuestionIndex = 0;
+
+  $scope.score = 0;
+  $scope.quizStarted = false;
 
   $scope.questionHasImageTop = function(question) {
     return (question.type === "imageToArticle");
@@ -86,17 +91,23 @@ angular.module('knowyorktimesApp')
         .content("You're Wrong :( -500")
           .position('top left')
           .hideDelay(2000)
+
           );
       $scope.score -= 500;
     }
-    currentQuestionIndex += 1;
-  }
 
-  var currentQuestionIndex = 0;
+    if(currentQuestionIndex === $scope.questions.length) {
+      $scope.endQuiz();
+    }
+  }
+  currentQuestionIndex += 1;
+
 
   $scope.filterQuestion = function(question) {
     //  return question.index === currentQuestionIndex;
     return $scope.questionsArray.indexOf(question) === currentQuestionIndex;
   }
-
 });
+
+
+

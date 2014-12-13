@@ -8,8 +8,13 @@
   </div>
 
   <md-progress-linear style="height: 15px" md-theme="green" ng-show="quizStarted" md-mode="determinate" value={{pCTMaxScore}}></md-progress-linear>
-  <div ng-show="quizStarted" style="">
-    <h2 class="yourscore" style="text-align: center; padding:10px;">Your Score: {{score}} Time Left: {{minLeft}}:{{secondsLeft}}</h2>
+  <div ng-show="quizStarted">
+  <div style="width:550px;" ng-show="quizStarted">
+    <h1 style="font-weight: bold; text-align: center; padding:10px; color:#43A047">Your Score: {{score}}</h1>
+  </div>
+  <div ng-show="quizStarted">
+    <h2 class="yourscore" style="text-align: center; padding:10px;">Time Left: {{minLeft}}:{{secondsLeft}}</h2>
+
   </div>
 
 
