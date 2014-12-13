@@ -15,6 +15,16 @@ angular.module('knowyorktimesApp')
   $scope.questionHasNoImage = function(question) {
     return (question.type === "snippetToArticle");
   }
+
+  $scope.deleteQuestionFromDataBase = function(question) {
+    // delete it from the data base
+    $http.delete('api/questions/' + question._id).success(function(data) {
+      console.log("deleted a thing====================================");
+      console.log(data);
+      $scope.questionsArray.splice($scope.questionsArray.indexOf(question), 1);
+    });
+  }
+
   $http.get('/api/questions').success(function(questions) {
     $scope.questionsArray = questions;
   });
