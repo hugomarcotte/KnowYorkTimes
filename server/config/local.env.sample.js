@@ -9,8 +9,8 @@ module.exports = {
   DOMAIN:           'http://localhost:9000',
   SESSION_SECRET:   'knowyorktimes-secret',
 
-  FACEBOOK_ID:      '858383320848406',
-  FACEBOOK_SECRET:  'bdc68bbfa418cb81f9a12c6570cf9aef',
+  FACEBOOK_ID:      '',
+  FACEBOOK_SECRET:  '',
 
   TWITTER_ID:       'app-id',
   TWITTER_SECRET:   'secret',
