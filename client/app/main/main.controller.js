@@ -22,10 +22,15 @@ angular.module('knowyorktimesApp')
         $scope.secondsLeft = secondsLeft % 60;
         if ($scope.minLeft === 0 && $scope.secondsLeft === 0) {
           $scope.$apply();
-          alert("the quiz is over! your score was " + $scope.score);
+          $scope.endQuiz();
         }
       }, 1000, 120);
     }
+
+    $scope.endQuiz = function() {
+      $scope.quizStarted = false;
+      alert("the quiz is over! your score was " + $scope.score);
+    };
 
     $scope.answerQuestion = function(questionObject) {
       if (questionObject.displayTitle === questionObject.title) {
