@@ -15,18 +15,26 @@ angular.module('knowyorktimesApp')
 
 
     $scope.score = 0;
+    $scope.secondsLeftForBar = 120;
+
+
     var secondsLeft = 120;
+    var secondsLeftForBar = 120;
     $scope.countDown = function() {
       $interval(function() {
+        secondsLeftForBar--;
         secondsLeft--;
         $scope.minLeft = Math.floor(secondsLeft / 60);
         $scope.secondsLeft = secondsLeft % 60;
+        $scope.secondsLeftForBar = secondsLeftForBar;
         if ($scope.minLeft === 0 && $scope.secondsLeft === 0) {
           $scope.$apply();
           alert("the quiz is over! your score was " + $scope.score);
         }
       }, 1000, 120);
+
     }
+
 
 
 
@@ -72,6 +80,7 @@ angular.module('knowyorktimesApp')
         $scope.score -= 500;
       }
       currentQuestionIndex += 1;
+         $scope.pCTMaxScore = ($scope.score/8000) * 100;
     }
 
 
