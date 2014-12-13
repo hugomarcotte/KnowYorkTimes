@@ -11,6 +11,7 @@ var router = express.Router();
 // router.put('/:id', controller.update);
 // router.patch('/:id', controller.update);
 // router.delete('/:id', controller.destroy);
-router.post('/', controller.getNameFromImageURL);
+router.post('/', controller.getAlchamyKeywordsFromURL);
+
 
 module.exports = router;

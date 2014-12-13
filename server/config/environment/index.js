@@ -10,6 +10,8 @@ function requiredProcessEnv(name) {
   return process.env[name];
 }
 
+console.log(process.env.IP);
+
 // All configurations will extend these options
 // ============================================
 var all = {

@@ -12,7 +12,10 @@
   <div>
     <md-button ng-click="buildQuestions()" class="md-raised md-primary">Generate</md-button>
   </div>
-
+  <div>
+    <button ng-click="callAlchemy()">Alchemy</button>
+    <div>{{results}}</div>
+  </div>
     <md-card  style="width: 600px;" ng-repeat="question in questions" class="animate">
       <div layout="column">
         <h3 style="font-size:40px" class="text-center" >This Image:</h3>

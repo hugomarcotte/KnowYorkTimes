@@ -28,6 +28,31 @@ exports.getNameFromImageURL = function(req, res) {
   return res.json(201, {name:"ben"});
 };
 
+exports.getAlchamyKeywordsFromURL = function(req, res) {
+  console.log("getting keywords 2");
+  //return res.json(201, {name: "Ntp"})
+  alchemyapi.keywords(
+    'url',
+    'http://www.nytimes.com/2014/12/11/sports/oklahoma-high-school-football-replay-ruling-is-delayed.html', // req.body.url
+    {},
+    function(response){
+      // go through keywords, get only ones with relevance>0.7, maybe also filter ones that are in the title
+      console.log("got keywords! " + response);
+
+      var filtered_keywords = [];
+      for(var i =0; i < response.keywords.length; i++){
+        if (response.keywords[i].relevance >= 0.7) {
+          filtered_keywords.push(response.keywords[i]);
+        }
+      }
+        
+      return res.json(201, {results: filtered_keywords})
+    }
+  );
+  //console.log("after keywords");
+
+};
+
 
 var resultsPageNumber = 0;
 exports.newYorkTimesApiCall = function(req, res) {

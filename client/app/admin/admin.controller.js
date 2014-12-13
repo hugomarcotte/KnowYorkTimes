@@ -8,6 +8,17 @@ angular.module('knowyorktimesApp')
     $http.get('/api/questions').success(function(questions) {
       $scope.questions = questions;
     });
+    
+    $scope.callAlchemy = function() {
+      
+      console.log('called api1');
+      $http.post('/api/names',{}).success(function(results) {
+        
+        console.log('called api');
+        $scope.results = results;
+        
+      });
+    };
 
 
     $scope.quizObject = {
