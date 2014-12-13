@@ -1,41 +1,86 @@
 'use strict';
 
 angular.module('knowyorktimesApp')
-  .controller('MainCtrl', function ($scope, $http, $mdToast, $animate) {
+  .controller('MainCtrl', function ($scope, $http, $mdToast, $animate, $interval) {
     $scope.awesomeThings = [];
 
 
-    $http.get('/api/questions').success(function(questions) {
-      console.log(questions);
-      $scope.questions = questions;
-    });
+    $scope.startQuiz = function() {
+      $http.get('/api/questions').success(function(questions) {
+        console.log(questions);
+        $scope.questions = questions;
+      });
+      $scope.countDown();
+    }
 
-    $scope.names = ['Igor Minar', 'Brad Green', 'Dave Geddes', 'Naomi Black', 'Greg Weber', 'Dean Sofer', 'Wes Alvaro', 'John Scott', 'Daniel Nadasi'];
-    $scope.showSimpleToast = function() {
-      $mdToast.show(
-        $mdToast.simple()
-        .content('Your Right!')
-        .position('bottom right')
-        .hideDelay(2000)
-      );
 
+    $scope.score = 0;
+    var secondsLeft = 120;
+    $scope.countDown = function() {
+      $interval(function() {
+        secondsLeft--;
+        $scope.minLeft = Math.floor(secondsLeft / 60);
+        $scope.secondsLeft = secondsLeft % 60;
+        if ($scope.minLeft === 0 && $scope.secondsLeft === 0) {
+          $scope.$apply();
+          alert("the quiz is over! your score was " + $scope.score);
+        }
+      }, 1000, 120);
+    }
+
+
+
+
+
+    $scope.yesButtonClickImageToTitle = function(questionObject) {
+      if (questionObject.displayTitle === questionObject.title) {
+        $mdToast.show(
+          $mdToast.simple()
+          .content('Your Right! + 300')
+          .position('top left')
+          .hideDelay(2000)
+        );
+        $scope.score += 300;
+      } else {
+        $mdToast.show(
+          $mdToast.simple()
+          .content('Your Wrong :( -500')
+          .position('top left')
+          .hideDelay(2000)
+        );
+        $scope.score -= 500;
+      }
       currentQuestionIndex += 1;
-    };
+    }
 
-    var currentQuestionIndex =1;
+    $scope.noButtonClickImageToTitle = function(questionObject) {
+      if (questionObject.displayTitle !== questionObject.title) {
+        $mdToast.show(
+          $mdToast.simple()
+          .content('Your Right! + 300')
+          .position('top left')
+          .hideDelay(2000)
+        );
+        $scope.score += 300;
+      } else {
+        $mdToast.show(
+          $mdToast.simple()
+          .content('Your Wrong :( -500')
+          .position('top left')
+          .hideDelay(2000)
+        );
+        $scope.score -= 500;
+      }
+      currentQuestionIndex += 1;
+    }
+
+
+
+
+    var currentQuestionIndex = 1;
     $scope.filterQuestion = function(question) {
       return question.index === currentQuestionIndex;
     }
 
-    // $scope.addThing = function() {
-    //   if($scope.newThing === '') {
-    //     return;
-    //   }
-    //   $http.post('/api/things', { name: $scope.newThing });
-    //   $scope.newThing = '';
-    // };
-    //
-    // $scope.deleteThing = function(thing) {
-    //   $http.delete('/api/things/' + thing._id);
-    // };
+
   });
