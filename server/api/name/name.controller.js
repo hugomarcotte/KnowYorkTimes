@@ -29,26 +29,24 @@ exports.getNameFromImageURL = function(req, res) {
 };
 
 
-var resultsPageNumber = 0;
+
 exports.newYorkTimesApiCall = function(req, res) {
+  var resultsPageNumber = req.params.pageNumber[1];
+  console.log(resultsPageNumber);
+  var NYTapiKey = "bdcebec4874a5076dbaaa7f2a5f0db3b:3:70140904";
 
+  /// query for news quiz
 
-var NYTapiKey = "bdcebec4874a5076dbaaa7f2a5f0db3b:3:70140904";
+  //AND (pub_date:[1234-12-12 TO 1234-12-12] OR created:[fjdsaklfhdjas])
+   var url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?fq=source:("The New York Times") AND type_of_material:("News") AND section_name:("Sports" "US" "Science" "Arts" ) AND pub_date:("2014-12-13")' + '&page=' + resultsPageNumber + '&api-key=' + NYTapiKey;
 
-  console.log("made it here");;
-
-  var url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?fq=source:("The New York Times") AND type_of_material:("News") AND news_desk:("Sports" "Science")' + '&begin_date=20141211&end_date=20141211' + '&page=' + resultsPageNumber + '&api-key=' + NYTapiKey;
+  // working sports quiz query
+  //  var url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?fq=source:("The New York Times") AND type_of_material:("News") AND section_name:("Sports")' + '&begin_date=20141211&end_date=20141211' + '&page=' + resultsPageNumber + '&api-key=' + NYTapiKey;
+  // old working
+  // var url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?fq=source:("The New York Times") AND type_of_material:("News") AND news_desk:("Sports" "Science")' + '&begin_date=20141211&end_date=20141211' + '&page=' + resultsPageNumber + '&api-key=' + NYTapiKey;
   request(url, function(err,responce,body) {
-    /////////// do everything with data
-
-    ////////////////
-    console.log(responce);
-    resultsPageNumber++;
     return res.json(200, responce);
   });
-
-
-
 };
 
 
