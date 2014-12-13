@@ -29,26 +29,15 @@ exports.getNameFromImageURL = function(req, res) {
 };
 
 
-var resultsPageNumber = 0;
+
 exports.newYorkTimesApiCall = function(req, res) {
-
-
-var NYTapiKey = "bdcebec4874a5076dbaaa7f2a5f0db3b:3:70140904";
-
-  console.log("made it here");;
-
+  var resultsPageNumber = req.params.pageNumber[1];
+  console.log(resultsPageNumber);
+  var NYTapiKey = "bdcebec4874a5076dbaaa7f2a5f0db3b:3:70140904";
   var url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?fq=source:("The New York Times") AND type_of_material:("News") AND news_desk:("Sports" "Science")' + '&begin_date=20141211&end_date=20141211' + '&page=' + resultsPageNumber + '&api-key=' + NYTapiKey;
   request(url, function(err,responce,body) {
-    /////////// do everything with data
-
-    ////////////////
-    console.log(responce);
-    resultsPageNumber++;
     return res.json(200, responce);
   });
-
-
-
 };
 
 

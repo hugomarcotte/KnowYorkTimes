@@ -9,10 +9,15 @@
         <a ng-click="delete(user)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
     </li>
   </ul>
-  <div>
-    <md-button ng-click="buildQuestions()" class="md-raised md-primary">Generate</md-button>
+  <div layout="row" flex layout-align="center start">
+    <div>
+      <md-button ng-click="buildQuestions()" class="md-raised md-primary">Generate Questions</md-button>
+    </div>
+    <span style="width:10px;"></span>
+    <div>
+      <md-button ng-click="destroyAllQuestions()" class="md-raised md-warn">Delete Questions</md-button>
+    </div>
   </div>
-
 
 
 

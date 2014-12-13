@@ -25,6 +25,17 @@ angular.module('knowyorktimesApp')
     });
   }
 
+  $scope.destroyAllQuestions = function () {
+    // delete all from database
+    console.log("deleted all the things?");
+    $http.delete('api/questions').success(function(data) {
+      console.log("deleted ALL the things!");
+      console.log(data);
+      $scope.questionsArray = [];
+    });
+
+  }
+
   $http.get('/api/questions').success(function(questions) {
     $scope.questionsArray = questions;
   });
@@ -134,7 +145,8 @@ angular.module('knowyorktimesApp')
   $scope.indexQuestion = 1;
 
   $scope.buildQuestions = function() {
-    $http.get('/api/names').success(function(results) {
+    for (var i = 0 ; i < 5; i++) {
+    $http.get('/api/names/:' + i).success(function(results) {
       var parsedRes = JSON.parse(results.body)
       var docsArray = parsedRes['response']['docs'];
       console.log(docsArray);
@@ -198,39 +210,7 @@ angular.module('knowyorktimesApp')
       console.log($scope.fakeTitlesArray);
       console.log("--------------------------------fakeSnippetsArray");
       console.log($scope.fakeSnippetsArray);
-      // console.log(questions);
 
-
-      ///////////////////////////////////////working  code ////////////////////////////////////////////////////////
-      // loop through your questions for each of them save the to database
-      // $scope.flexQuestionsArray.forEach(function(felxQuestion) {
-      //   $http.post('/api/questions', {
-      //     index: $scope.indexQuestion,
-      //     image: felxQuestion.image,
-      //     displayImage: felxQuestion.displayImage,
-      //     fakeImages: felxQuestion.fakeImages,
-      //     title: felxQuestion.title,
-      //     displayTitle: felxQuestion.displayTitle,
-      //     fakeTitles: felxQuestion.fakeTitles,
-      //     snippet: felxQuestion.snippet,
-      //     displaySnippet: felxQuestion.displaySnippet,
-      //     fakeSnippets: felxQuestion.fakeSnippets,
-      //     name: felxQuestion.name,
-      //     displayName: felxQuestion.displayName,
-      //     fakeNames: felxQuestion.fakeNames,
-      //     displayAnswer: felxQuestion.displayAnswer
-      //   }).
-      //   success(function(data) {
-      //     return data;
-      //   }).
-      //   error(function(err) {
-      //     console.log(err);
-      //   });
-      //
-      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-      ////////////////////////////////////////// working code ? /////////////////////////////////////////////////////////
       $scope.flexQuestionsArray.forEach(function(question) {
         // image to article
         var obj1 = {
@@ -259,8 +239,6 @@ angular.module('knowyorktimesApp')
           "type" : "snippetToImage",
         }
 
-
-
         $http.post('/api/questions', obj1).
         success(function(data) {
           console.log(data);
@@ -277,7 +255,6 @@ angular.module('knowyorktimesApp')
           console.log(err);
         });
 
-
         $http.post('/api/questions', obj3).
         success(function(data) {
           console.log(data);;
@@ -286,15 +263,12 @@ angular.module('knowyorktimesApp')
           console.log(err);
         });
       });
-
-
-
-
     $scope.flexQuestionsArray = [];
     $http.get('/api/questions').success(function(questions) {
-      $scope.questions = questions;
+      $scope.questionsArray = questions;
     });
   });
+};
 };
 
 

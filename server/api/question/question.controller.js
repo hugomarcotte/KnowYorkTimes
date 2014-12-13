@@ -54,6 +54,15 @@ exports.destroy = function(req, res) {
   });
 };
 
+// Deletes all questions from the DB.
+exports.destroyAll = function(req, res) {
+  Question.remove({}, function (err) {
+    if(err) { return handleError(res, err); }
+    return res.send(204);
+
+  });
+};
+
 function handleError(res, err) {
   return res.send(500, err);
 }
