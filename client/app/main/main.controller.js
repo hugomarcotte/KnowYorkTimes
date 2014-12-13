@@ -4,6 +4,7 @@ angular.module('knowyorktimesApp')
   .controller('MainCtrl', function ($scope, $http, $mdToast, $animate) {
     $scope.awesomeThings = [];
 
+
     $http.get('/api/questions').success(function(questions) {
       console.log(questions);
       $scope.questions = questions;

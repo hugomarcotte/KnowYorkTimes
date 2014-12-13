@@ -91,11 +91,13 @@ angular.module('knowyorktimesApp')
         // console.log(questions);
 
 
-
+        var indexQuestion = 1;
         // loop through your questions for each of them save the to data base
         $scope.flexQuestionsArray.forEach(function(felxQuestion) {
 
+
           $http.post('/api/questions', {
+            index: indexQuestion,
             image: felxQuestion.image,
             displayImage: felxQuestion.displayImage,
             fakeImages: felxQuestion.fakeImages,
@@ -113,9 +115,7 @@ angular.module('knowyorktimesApp')
           }).
           success(function(data) {
 
-            $http.get('/api/questions').success(function(questions) {
-              $scope.questions = questions;
-            });
+
 
             return data;
           }).
@@ -123,6 +123,11 @@ angular.module('knowyorktimesApp')
             console.log(err);
           });
 
+          indexQuestion++;
+        });
+
+        $http.get('/api/questions').success(function(questions) {
+          $scope.questions = questions;
         });
     });
   };

@@ -4,6 +4,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var QuestionSchema = new Schema({
+  index: Number,
   image: String,
   displayImage: String,
   fakeImages: Array,

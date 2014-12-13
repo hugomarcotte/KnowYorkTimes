@@ -8,12 +8,15 @@ angular.module('knowyorktimesApp')
     $scope.login = function(form) {
       $scope.submitted = true;
 
+
       if(form.$valid) {
+
         Auth.login({
           email: $scope.user.email,
           password: $scope.user.password
         })
         .then( function() {
+          console.log($scope.user);
           // Logged in, redirect to home
           $location.path('/');
         })
