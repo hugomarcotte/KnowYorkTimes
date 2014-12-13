@@ -4,7 +4,7 @@ angular.module('knowyorktimesApp')
   .controller('MainCtrl', function ($scope, $http, $mdToast, $animate, $interval) {
     var secondsLeft = 120;
 
-    $scope.score = 0;
+    $scope.score = 5000;
     $scope.quizStarted = false;
 
     $scope.startQuiz = function() {
@@ -51,6 +51,7 @@ angular.module('knowyorktimesApp')
         $scope.score -= 500;
       }
       currentQuestionIndex += 1;
+      $scope.pCTMaxScore = ($scope.score/ 10000) * 100;
     }
 
     var currentQuestionIndex = 1;

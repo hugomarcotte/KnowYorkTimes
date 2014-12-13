@@ -11,23 +11,23 @@
 </header> -->
 <div layout="column" layout-align="center center">
   <div ng-hide="quizStarted" layout layout-align="center center">
-      <md-button class="md-primary md-raised" ng-click="startQuiz()" md-theme="green"  >Start Quiz</md-button>
+      <md-button class="md-primary md-raised bigButton" ng-click="startQuiz()" md-theme="green"  >Start Quiz</md-button>
 
   </div>
 
-  <div ng-show="quizStarted" style="width:500px;">
-    <h2><span class="yourscore">Your Score: {{score}} Time Left: {{minLeft}}:{{secondsLeft}} </span></h2>
-    <md-progress-linear md-mode="determinate" value={{pCTMaxScore}}></md-progress-linear>
-    <md-progress-linear md-theme="green" md-mode="determinate" ng-value={{secondsLeffForBar}}></md-progress-linear>
+    <md-progress-linear style="height: 15px" md-theme="green" ng-show="quizStarted" md-mode="determinate" value={{pCTMaxScore}}></md-progress-linear>
+  <div ng-show="quizStarted" style="">
+    <h2 class="yourscore" style="text-align: center; padding:10px;">Your Score: {{score}} Time Left: {{minLeft}}:{{secondsLeft}}</h2>
+
   </div>
 
 
 
-  <md-card  style="width:500px; height:600px; background-color:white;" ng-repeat="question in questions | filter:filterQuestion" class="animate">
-    <div layout="column" style="height:600px;">
-      <h3 style="font-size:40px" class="text-center" >This Image:</h3>
+  <md-card  style="width:550px; height:650px; background-color:rgb(235, 238, 244);" ng-repeat="question in questions | filter:filterQuestion" class="animate">
+    <div layout="column" style="height:560px;">
+      <h3 style="font-size:28px" class="text-center" >This Image:</h3>
       <img src="{{question.image}}" class="md-card-image" alt="Washed Out">
-      <h3 style="font-size:40px" class="text-center">Came From ... </h3>
+      <h3 style="font-size:28px" class="text-center">Came From ... </h3>
       <p class="text-center" style="font-size:25px"><em>{{question.displayTitle}}</em></p>
       <div layout="row" flex layout-align="center start">
         <!-- <md-button class="md-raised md-warn" ng-click="showSimpleToast()" style="height:75px;width:150px">No</md-button> -->
