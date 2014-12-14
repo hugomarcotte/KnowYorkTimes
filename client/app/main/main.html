@@ -4,66 +4,73 @@
 <div layout="column" layout-align="center center">
   <div ng-hide="quizStarted" layout layout-align="center center">
     <md-button class="md-primary md-raised bigButton" ng-click="startQuiz()" md-theme="green"  >Start Quiz</md-button>
-
   </div>
+  <md-card layout="column" layout-align="center center" style="width:550px; height:650px; background-color:#F5F5F5;" ng-show="quizFinished">
+    <h3 style="font-size:28px" class="text-center" >The Quiz is Over!</h3>
+    <h3 style="font-size:28px" class="text-center">Your Score is {{score}}</h3>
+  </md-card>
 
-  <md-progress-linear style="height: 15px" md-theme="green" ng-show="quizStarted" md-mode="determinate" value={{pCTMaxScore}}></md-progress-linear>
-  <div ng-show="quizStarted">
-  <div style="width:550px;" ng-show="quizStarted">
-    <h1 style="font-weight: bold; text-align: center; padding:10px; color:#43A047">Your Score: {{score}}</h1>
-  </div>
-  <div ng-show="quizStarted">
-    <h2 class="yourscore" style="text-align: center; padding:10px;">Time Left: {{minLeft}}:{{secondsLeft}}</h2>
-
-  </div>
-
-
-
-<md-card  style="width:550px; height:650px; background-color:rgb(235, 238, 244);" ng-repeat="question in questionsArray | filter:filterQuestion" class="animate">
-
-
-  <!-- question has image top  -->
-  <div ng-show="questionHasImageTop(question)" style="height:560px;" layout="column">
-    <h3 style="font-size:28px" class="text-center" >This Image:</h3>
-    <img src="{{question.questionTop}}" class="md-card-image" alt="Washed Out">
-    <h3 style="font-size:28px" class="text-center">Came From ... </h3>
-    <p class="text-center" style="font-size:25px"><em>{{question.questionBottom}}</em></p>
-    <div layout="row" flex layout-align="center start">
-      <md-button class="md-raised md-warn" ng-click="noButtonClick(question)" style="height:75px;width:150px">No</md-button>
-      <span style="width:10px;"></span>
-
-      <md-button class="md-primary md-raised" ng-click="yesButtonClick(question)" md-theme="green"  style="height:75px;width:150px">Yes</md-button>
+  <md-card class="animate yourscore" layout="column" style="background-color:#F5F5F5; padding-left:5px; padding-right:5px; width:550px;" ng-show="quizStarted && !quizFinished">
+    <div layout="row">
+      <div flex>
+        <h3 style="text-align: left;">{{currentQuestionIndex}} / {{nbOfQuestion}}</h3>
+      </div>
+      <div flex>
+        <h3 style="text-align: center;">{{minLeft}}:{{secondsLeft}}</h3>
+      </div>
+      <div flex>
+        <h3  style="text-align: right;">Score: {{score}} / {{maxScore}}</h3>
+      </div>
     </div>
-  </div>
-
-  <!-- question has image bottom  -->
-  <div ng-show="questionHasImageBottom(question)" style="height:560px;" layout="column">
-    <h3 style="font-size:28px" class="text-center" >This Sentence</h3>
-    <h4>{{question.questionTop}}</h4>
-    <h3 style="font-size:28px" class="text-center">Goes with ... </h3>
-    <img src="{{question.questionBottom}}" class="md-card-image" alt="Washed Out">
-    <div layout="row" flex layout-align="center start">
-      <!-- <md-button class="md-raised md-warn" ng-click="showSimpleToast()" style="height:75px;width:150px">No</md-button> -->
-      <md-button class="md-raised md-warn" ng-click="noButtonClick(question)" style="height:75px;width:150px">No</md-button>
-      <span style="width:10px;"></span>
-      <!-- <md-button class="md-primary md-raised" ng-click="showSimpleToast()" md-theme="green"  style="height:75px;width:150px">Yes</md-button> -->
-      <md-button class="md-primary md-raised" ng-click="yesButtonClick(question)" md-theme="green"  style="height:75px;width:150px">Yes</md-button>
+    <div>
+      <md-progress-linear style="height: 15px" md-theme="green" ng-show="quizStarted" md-mode="determinate" value={{pCTMaxScore}}></md-progress-linear>
     </div>
-  </div>
+  </md-card>
+  <md-card ng-hide="quizFinished" style="width:550px; height:650px; background-color:#F5F5F5;" ng-repeat="question in questionsArray | filter:filterQuestion" class="animate">
 
-  <!-- question has no image  -->
-  <div ng-show="questionHasNoImage(question)" style="height:560px;" layout="column">
-    <h3 style="font-size:28px" class="text-center" >This sentence: </h3>
-    <h4>{{question.questionTop}}</h4>
-    <h3 style="font-size:28px" class="text-center">Came From ... </h3>
-    <p class="text-center" style="font-size:25px"><em>{{question.questionBottom}}</em></p>
-    <div layout="row" flex layout-align="center start">
-      <!-- <md-button class="md-raised md-warn" ng-click="showSimpleToast()" style="height:75px;width:150px">No</md-button> -->
-      <md-button class="md-raised md-warn" ng-click="noButtonClick(question)" style="height:75px;width:150px">No</md-button>
-      <span style="width:10px;"></span>
-      <!-- <md-button class="md-primary md-raised" ng-click="showSimpleToast()" md-theme="green"  style="height:75px;width:150px">Yes</md-button> -->
-      <md-button class="md-primary md-raised" ng-click="yesButtonClick(question)" md-theme="green"  style="height:75px;width:150px">Yes</md-button>
+
+    <!-- question has image top  -->
+    <div ng-show="questionHasImageTop(question)" style="height:560px;" layout="column">
+      <h3 style="font-size:28px" class="text-center" >This Image:</h3>
+      <img src="{{question.questionTop}}" class="md-card-image" alt="Washed Out">
+      <h3 style="font-size:28px" class="text-center">Came From ... </h3>
+      <p class="text-center" style="font-size:25px"><em>{{question.questionBottom}}</em></p>
+      <div layout="row" flex layout-align="center start">
+        <md-button class="md-raised md-warn" ng-click="answerQuestion(question)" style="height:75px;width:150px">No</md-button>
+        <span style="width:10px;"></span>
+
+        <md-button class="md-primary md-raised" ng-click="answerQuestion(question)" md-theme="green"  style="height:75px;width:150px">Yes</md-button>
+      </div>
     </div>
-  </div>
 
-</md-card>
+    <!-- question has image bottom  -->
+    <div ng-show="questionHasImageBottom(question)" style="height:560px;" layout="column">
+      <h3 style="font-size:28px" class="text-center" >This Sentence</h3>
+      <h4>{{question.questionTop}}</h4>
+      <h3 style="font-size:28px" class="text-center">Goes with ... </h3>
+      <img src="{{question.questionBottom}}" class="md-card-image" alt="Washed Out">
+      <div layout="row" style="padding-top:10px;" flex layout-align="center start">
+        <!-- <md-button class="md-raised md-warn" ng-click="showSimpleToast()" style="height:75px;width:150px">No</md-button> -->
+        <md-button class="md-raised md-warn" ng-click="answerQuestion(question)" style="height:75px;width:150px">No</md-button>
+        <span style="width:10px;"></span>
+        <!-- <md-button class="md-primary md-raised" ng-click="showSimpleToast()" md-theme="green"  style="height:75px;width:150px">Yes</md-button> -->
+        <md-button class="md-primary md-raised" ng-click="answerQuestion(question)" md-theme="green"  style="height:75px;width:150px">Yes</md-button>
+      </div>
+    </div>
+
+    <!-- question has no image  -->
+    <div ng-show="questionHasNoImage(question)" style="height:560px;" layout="column">
+      <h3 style="font-size:28px" class="text-center" >This sentence: </h3>
+      <h4>{{question.questionTop}}</h4>
+      <h3 style="font-size:28px" class="text-center">Came From ... </h3>
+      <p class="text-center" style="font-size:25px"><em>{{question.questionBottom}}</em></p>
+      <div layout="row" flex layout-align="center start">
+        <!-- <md-button class="md-raised md-warn" ng-click="showSimpleToast()" style="height:75px;width:150px">No</md-button> -->
+        <md-button class="md-raised md-warn" ng-click="answerQuestion(question)" style="height:75px;width:150px">No</md-button>
+        <span style="width:10px;"></span>
+        <!-- <md-button class="md-primary md-raised" ng-click="showSimpleToast()" md-theme="green"  style="height:75px;width:150px">Yes</md-button> -->
+        <md-button class="md-primary md-raised" ng-click="answerQuestion(question)" md-theme="green"  style="height:75px;width:150px">Yes</md-button>
+      </div>
+    </div>
+
+  </md-card>

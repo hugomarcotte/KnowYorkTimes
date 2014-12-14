@@ -2,11 +2,13 @@
 
 angular.module('knowyorktimesApp')
 .controller('MainCtrl', function ($scope, $http, $mdToast, $animate, $interval) {
-  var secondsLeft = 120;
-  var currentQuestionIndex = 0;
+  var secondsLeft = 60;
+  $scope.currentQuestionIndex = 1;
 
   $scope.score = 0;
   $scope.quizStarted = false;
+  $scope.pCTMaxScore = 0;
+  $scope.quizFinished = false;
 
   $scope.questionHasImageTop = function(question) {
     return (question.type === "imageToArticle");
@@ -19,16 +21,14 @@ angular.module('knowyorktimesApp')
   $scope.questionHasNoImage = function(question) {
     return (question.type === "snippetToArticle");
   }
-  $scope.awesomeThings = [];
-  $scope.score = 5000;
-  $scope.quizStarted = false;
-  var secondsLeft = 120;
 
   $scope.startQuiz = function() {
     $http.get('/api/questions').success(function(questions) {
       $scope.questionsArray = questions.sort(function(a, b) {
         return a.randomNum - b.randomNum;
       });;
+      $scope.nbOfQuestion = questions.length;
+      $scope.maxScore = questions.length * 300
       $scope.quizStarted = true;
       $scope.countDown();
     });
@@ -48,32 +48,33 @@ angular.module('knowyorktimesApp')
 
   $scope.endQuiz = function() {
     $scope.quizStarted = false;
-    alert("the quiz is over! your score was " + $scope.score);
+    $scope.quizFinished = true;
   };
 
 
-  $scope.yesButtonClick = function(questionObject) {
+  $scope.answerQuestion = function(questionObject) {
     if (questionObject.questionBottom === questionObject.questionAnswer) {
 
       $mdToast.show(
         $mdToast.simple()
-        .content("You're Right! + 300")
-        .position('top left')
-        .hideDelay(2000)
+        .content("+ 300")
+        .position('top right')
+        .hideDelay(1000)
         );
       $scope.score += 300;
     } else {
       $mdToast.show(
         $mdToast.simple()
-        .content("You're Wrong :( -500")
-          .position('top left')
-          .hideDelay(2000)
+        .content("You're Wrong :(")
+          .position('top right')
+          .hideDelay(1000)
           );
-      $scope.score -= 500;
+      // $scope.score -= 500;
     }
-    currentQuestionIndex += 1;
-    $scope.pCTMaxScore = ($scope.score/ 10000) * 100;
-    if(currentQuestionIndex === $scope.questions.length) {
+    $scope.currentQuestionIndex += 1;
+    $scope.pCTMaxScore = ($scope.currentQuestionIndex / $scope.questionsArray.length) * 100 ;
+
+    if($scope.currentQuestionIndex === $scope.questions.length) {
       $scope.endQuiz();
     }
   }
@@ -98,9 +99,9 @@ angular.module('knowyorktimesApp')
           );
       $scope.score -= 500;
     }
-    currentQuestionIndex += 1;
+    $scope.currentQuestionIndex += 1;
 
-    $scope.pCTMaxScore = ($scope.score/ 10000) * 100;
+    $scope.pCTMaxScore = ($scope.currentQuestionIndex / $scope.questions.length) * 100 ;
     if(currentQuestionIndex === $scope.questions.length) {
       $scope.endQuiz();
     }
@@ -109,9 +110,6 @@ angular.module('knowyorktimesApp')
 
   $scope.filterQuestion = function(question) {
     //  return question.index === currentQuestionIndex;
-    return $scope.questionsArray.indexOf(question) === currentQuestionIndex;
+    return $scope.questionsArray.indexOf(question) === $scope.currentQuestionIndex;
   }
 });
-
-
-
