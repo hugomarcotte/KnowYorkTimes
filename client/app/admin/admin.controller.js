@@ -59,7 +59,7 @@ angular.module('knowyorktimesApp')
     playsInfo: {}
   }
 
-  function FlexQuestion(image, title, snippet) {
+  function FlexQuestion(image, title, snippet, keywords) {
     this.image = image;
     this.displayImage = "";
     this.fakeImages = [];
@@ -69,6 +69,9 @@ angular.module('knowyorktimesApp')
     this.snippet = snippet;
     this.displaySnippet = "";
     this.fakeSnippets = [];
+    this.keywords = keywords;
+    this.displayKeyword = "";
+    this.fakeKeywords = [];
     this.name = "";
     this.displaame = "";
     this.fakeNames = [];
@@ -84,6 +87,8 @@ angular.module('knowyorktimesApp')
         fakeAnswerArrayName = "fakeSnippets";
       }  else if (answerName === "snippet") {
         fakeAnswerArrayName = "fakeNames";
+      }  else if (answerName === "keyword") {
+        fakeAnswerArrayName = "fakeKeywords";
       }
       if (fakeAnswerArrayName === "fakeImages") {
         var randomIndex = Math.floor((Math.random() * (this.fakeImages.length -1)) + 0);
@@ -97,6 +102,9 @@ angular.module('knowyorktimesApp')
       } else if (fakeAnswerArrayName === "fakeNames" ) {
         var randomIndex = Math.floor((Math.random() * (this.fakeNames.length -1)) + 0);
         this.displayName = this.fakeNames[randomIndex];
+      } else if (fakeAnswerArrayName === "fakeKeywords" ) {
+        var randomIndex = Math.floor((Math.random() * (this.fakeKeywords.length -1)) + 0);
+        this.displayName = this.fakeKeywords[randomIndex];
       }
     };
 
@@ -108,6 +116,8 @@ angular.module('knowyorktimesApp')
         this.displayImage = this.image;
       } else if (randomNumber === 1 && answerName === "snippet" ) {
         this.displaySnippet = this.snippet;
+      } else if (randomNumber === 1 && answerName === "keyword" ) {
+        this.displayKeyword = this.keywords;
       } else if (randomNumber === 1 && answerName === "name") {
 
       } else {
@@ -120,13 +130,13 @@ angular.module('knowyorktimesApp')
       this.setDisplayedAnswer(answerType);
 
       if (yesorno === "yes"){
-        if (this.displayAnswer === this.image || this.displayAnswer === this.title || this.displayAnswer === this.snippet || this.displayAnswer === this.name) {
+        if (this.displayAnswer === this.image || this.displayAnswer === this.title || this.displayAnswer === this.snippet || this.displayAnswer === this.keywords || this.displayAnswer === this.name) {
           alert("you are correct");
         } else {
           alert("you soooo wrong!!!!!!!!");
         }
       } else if (yesorno === "no") {
-        if (this.displayAnswer === this.image || this.displayAnswer === this.title || this.displayAnswer === this.snippet || this.displayAnswer === this.name) {
+        if (this.displayAnswer === this.image || this.displayAnswer === this.title || this.displayAnswer === this.snippet || this.displayAnswer === this.keywords || this.displayAnswer === this.name) {
           alert("you soooo wrong!!!!!!!!");
         } else {
           alert("you are correct");
@@ -142,6 +152,8 @@ angular.module('knowyorktimesApp')
         console.log("got here");
       } else if (answerType === "snippet") {
         this.displayAnswer = this.displaySnippet;
+      } else if (answerType === "keyword") {
+        this.displayAnswer = this.displayKeyword;
       } else if (answerType === "name") {
         this.displayAnswer = this.displayName;
       }
@@ -155,6 +167,7 @@ angular.module('knowyorktimesApp')
   $scope.fakeImagesArray = [];
   $scope.fakeTitlesArray = [];
   $scope.fakeSnippetsArray = [];
+  $scope.fakeKeywordsArray = [];
   $scope.indexQuestion = 1;
 
   $scope.buildQuestions = function() {
@@ -173,11 +186,13 @@ angular.module('knowyorktimesApp')
           var articleImage = "http://www.nytimes.com/" + articleObject.multimedia[0].url;
           var articleTitle = articleObject.headline.main;
           var articleSnippet = articleObject.snippet;
-          var newFlexQuestion = new FlexQuestion(articleImage, articleTitle, articleSnippet);
+          var articleKeyword = articleObject.keyword;
+          var newFlexQuestion = new FlexQuestion(articleImage, articleTitle, articleSnippet, articleKeyword);
           $scope.flexQuestionsArray.push(newFlexQuestion);
           $scope.fakeImagesArray.push(articleImage);
           $scope.fakeTitlesArray.push(articleTitle);
           $scope.fakeSnippetsArray.push(articleSnippet);
+          $scope.fakeSnippetsArray.push(articleKeyword);
         }
       });
 
