@@ -70,7 +70,42 @@ exports.newYorkTimesApiCall = function(req, res) {
   // old working
   // var url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?fq=source:("The New York Times") AND type_of_material:("News") AND news_desk:("Sports" "Science")' + '&begin_date=20141211&end_date=20141211' + '&page=' + resultsPageNumber + '&api-key=' + NYTapiKey;
   request(url, function(err,responce,body) {
+      console.log("getting keywords 3");
+      console.log("$#$#$##$#$#$#$#$#$#$#$#$#$#$#$-----------------");
+      //console.log(responce);
+      //console.log(body);
+      
+      for (var i=0; i<responce.docs.length; i++) {
+        var web_url = responce.docs[i].web_url;
+        console.log(web_url);
+
+        alchemyapi.keywords(
+          'url',
+          web_url, // req.body.url
+          {},
+          function(response){
+            // go through keywords, get only ones with relevance>0.7, maybe also filter ones that are in the title
+            console.log("got keywords! " + response);
+      
+            var filtered_keywords = [];
+            for(var i =0; i < response.keywords.length; i++){
+              if (response.keywords[i].relevance >= 0.7) {
+                filtered_keywords.push(response.keywords[i]);
+              }
+            }
+            responce.keywords = filtered_keywords;
+          
+        //return res.json(201, {results: filtered_keywords})
+      //}
+    //);
+
+    
+    
+    
+   // request(alchemyurl, function(err, res2, body){
+      // add stuff to responce object
     return res.json(200, responce);
+    })
   });
 };
 
