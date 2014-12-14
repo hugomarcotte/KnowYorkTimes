@@ -30,7 +30,12 @@ angular.module('knowyorktimesApp')
       $scope.nbOfQuestion = questions.length;
       $scope.maxScore = questions.length * 300
       $scope.quizStarted = true;
+      $scope.quizFinished = false;
       $scope.countDown();
+      $scope.score = 0;
+      secondsLeft = 60;
+      $scope.currentQuestionIndex = 1;
+      $score.pCTMaxScore = ($scope.currentQuestionIndex / $scope.questionsArray.length) * 100;
     });
   }
 
@@ -74,7 +79,7 @@ angular.module('knowyorktimesApp')
     $scope.currentQuestionIndex += 1;
     $scope.pCTMaxScore = ($scope.currentQuestionIndex / $scope.questionsArray.length) * 100 ;
 
-    if($scope.currentQuestionIndex === $scope.questions.length) {
+    if($scope.currentQuestionIndex === $scope.questionsArray.length) {
       $scope.endQuiz();
     }
   }
@@ -97,7 +102,7 @@ angular.module('knowyorktimesApp')
           .hideDelay(2000)
 
           );
-      $scope.score -= 500;
+      // $scope.score -= 500;
     }
     $scope.currentQuestionIndex += 1;
 

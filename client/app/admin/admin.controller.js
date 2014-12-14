@@ -103,20 +103,20 @@ angular.module('knowyorktimesApp')
     };
 
     this.correctAnswer = function(yesorno, answerType) {
-      console.log(answerType);
+      // console.log(answerType);
       this.setDisplayedAnswer(answerType);
 
       if (yesorno === "yes"){
         if (this.displayAnswer === this.image || this.displayAnswer === this.title || this.displayAnswer === this.snippet || this.displayAnswer === this.name) {
-          alert("you are correct");
+          // alert("you are correct");
         } else {
-          alert("you soooo wrong!!!!!!!!");
+          // alert("you soooo wrong!!!!!!!!");
         }
       } else if (yesorno === "no") {
         if (this.displayAnswer === this.image || this.displayAnswer === this.title || this.displayAnswer === this.snippet || this.displayAnswer === this.name) {
-          alert("you soooo wrong!!!!!!!!");
+          // alert("you soooo wrong!!!!!!!!");
         } else {
-          alert("you are correct");
+          // alert("you are correct");
         }
       }
     };
@@ -126,7 +126,7 @@ angular.module('knowyorktimesApp')
         this.displayAnswer = this.displayImage;
       } else if (answerType === "title") {
         this.displayAnswer = this.displayTitle;
-        console.log("got here");
+        // console.log("got here");
       } else if (answerType === "snippet") {
         this.displayAnswer = this.displaySnippet;
       } else if (answerType === "name") {
@@ -149,10 +149,10 @@ angular.module('knowyorktimesApp')
     $http.get('/api/names/:' + i).success(function(results) {
       var parsedRes = JSON.parse(results.body)
       var docsArray = parsedRes['response']['docs'];
-      console.log(docsArray);
-
-      console.log("-----------------------------------docsArray");
-      console.log(docsArray);
+      // console.log(docsArray);
+      //
+      // console.log("-----------------------------------docsArray");
+      // console.log(docsArray);
 
       // loop over articles and create flexObjects from them, also create the fake answer arrays
       docsArray.forEach(function(articleObject) {
@@ -201,15 +201,15 @@ angular.module('knowyorktimesApp')
         flexQuestion.setDisplayAnswer("snippet");
         flexQuestion.setDisplayAnswer("name");
       });
-
-      console.log("---------------------------------flexQestionsArray");
-      console.log($scope.flexQuestionsArray);
-      console.log("--------------------------------fakeImagesArray");
-      console.log($scope.fakeImagesArray);
-      console.log("--------------------------------fakeTitlesArray");
-      console.log($scope.fakeTitlesArray);
-      console.log("--------------------------------fakeSnippetsArray");
-      console.log($scope.fakeSnippetsArray);
+      //
+      // console.log("---------------------------------flexQestionsArray");
+      // console.log($scope.flexQuestionsArray);
+      // console.log("--------------------------------fakeImagesArray");
+      // console.log($scope.fakeImagesArray);
+      // console.log("--------------------------------fakeTitlesArray");
+      // console.log($scope.fakeTitlesArray);
+      // console.log("--------------------------------fakeSnippetsArray");
+      // console.log($scope.fakeSnippetsArray);
 
       $scope.flexQuestionsArray.forEach(function(question) {
         // image to article
